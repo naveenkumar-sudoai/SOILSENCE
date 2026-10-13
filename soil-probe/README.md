@@ -54,16 +54,69 @@ soil-probe/
 The camera node can be used in USB dataset collection mode:
 
 1. Connect the ESP32-CAM to your computer via USB
-2. Run the dataset collector tool:
+2. Install dependencies:
    ```bash
    cd tools/dataset_collector
+   pip install -r requirements.txt
+   ```
+3. Run the dataset collector tool:
+   ```bash
    python3 soil_collector.py
    ```
-3. Follow the UI to select the COM port and capture images
+4. Follow the UI to select the COM port and capture images
+5. Images will be saved in `dataset/<soil_class>/` directories
 
 ### Building Firmware
 
-For building firmware, use `arduino-cli` with the following command:
+For building camera node firmware, use `arduino-cli` with the following command:
 ```bash
 arduino-cli compile --fqbn esp32:esp32:esp32cam firmware/cam_node/
 ```
+
+For building hub firmware (not yet implemented):
+```bash
+arduino-cli compile --fqbn esp32:esp32:esp32dev firmware/hub/
+```
+
+### Arduino Setup
+
+1. Install Arduino IDE or VS Code with PlatformIO
+2. Add ESP32 board support:
+   - In Arduino IDE: Tools > Board > Boards Manager > Search "esp32" > Install
+   - Or for PlatformIO: Add `espressif32` platform
+
+3. For the camera node to work properly, ensure you have these libraries installed:
+   - ESP32-camera
+   - ESPAsyncWebServer (for hub)
+
+## Project Status
+
+### Milestone 1 Completed
+- Repository scaffold with all required directories and documentation
+- USB dataset collection mode for camera node firmware
+- Dataset collector tool with GUI interface
+- Complete wiring and API documentation
+
+### Next Milestones
+- WiFi mode implementation for camera node (`/capture` endpoint)
+- Sensor hub firmware with Modbus support
+- Full application framework (Flutter)
+- ML pipeline with soil classifier training
+
+## Development Setup
+
+To begin development:
+
+1. Clone this repository
+2. Install required dependencies:
+   - Python 3.x with `pyserial` and `Pillow`
+   - Arduino IDE or PlatformIO for firmware compilation
+   - Flutter SDK for mobile app development
+
+## Contributing
+
+Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
